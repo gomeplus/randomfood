@@ -9,6 +9,29 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>Randomfood</title>
+    <script type="text/javascript" src="./jquery-2.2.3/jquery-2.2.3.min.js"></script>
+    <script>
+    
+    	var arrFood = ["자연별곡", "방배골곱창", "성민양꼬치", "애슐리", "브라이리퍼블릭", "백채", "후쿠오카힘바그", "홍대돈부리"];
+    
+    	$(document).ready(function() {
+    		
+    		$("#start").click(function () {
+    			var count = 0;
+				var timer = setInterval(function() {
+					++count;	
+	   				var index = Math.floor(Math.random()*10)%arrFood.length;
+	       			$("#result").val(arrFood[index]);
+	       			if(count >= 10) {
+	       				clearInterval(timer);
+	       			}
+	       			
+				}, 100); 
+    		});
+    		
+    	});
+    		
+    </script>
   </head>
 
   <body>
@@ -38,19 +61,12 @@
         <table>
           <tr>
             <td>
-              
+            	<input type="button" id="start" value="Start"/>
             </td>
           </tr>
         </table>
-      </p>
-      
-      
+        <input type="text" id="result" value=""/>
         
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
       <footer class="inner">
         <p class="copyright">Randomfood maintained by <a href="https://github.com/gomeplus">gomeplus</a></p>
       </footer>
