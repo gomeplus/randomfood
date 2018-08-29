@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Randomfood : ">
@@ -11,68 +11,120 @@
     <title>Randomfood</title>
     <script type="text/javascript" src="./jquery-2.2.3/jquery-2.2.3.min.js"></script>
     <script>
-    
-    	var arrFood = ["자연별곡", "방배골곱창", "성민양꼬치", "애슐리", "브라이리퍼블릭", "백채", "후쿠오카힘바그", "홍대돈부리"];
-    
-    	$(document).ready(function() {
-    		
-    		$("#start").click(function () {
-    			var count = 0;
-				var timer = setInterval(function() {
-					++count;	
-	   				var index = Math.floor(Math.random()*10)%arrFood.length;
-	       			$("#result").val(arrFood[index]);
-	       			if(count >= 10) {
-	       				clearInterval(timer);
-	       			}
-	       			
-				}, 100); 
-    		});
-    		
-    	});
-    		
+        $(document).ready(function() {
+            $("#recommand").click(function () {
+                $.ajax({
+                    headers: {"Accept": "application/json"},
+                    type: 'GET',
+                    url: ' https://pure-lake-93494.herokuapp.com/randomfood/random',
+                    crossDomain: true,
+                    beforeSend: function (xhr) {
+                        xhr.withCredentials = true;
+                    },
+                    success: function (data) {
+                        $("#name").val(data["name"]);
+                        $("#note").val(data["note"]);
+                    }
+                });
+            });
+
+            $("#put").click(function (){
+                $.ajax({
+                    headers: {"Accept": "application/json"},
+                    type: 'GET',
+                    url: ' https://pure-lake-93494.herokuapp.com/randomfood/put?name='+$("#namemod").val()+'&note='+$("#notemod").val(),
+                    crossDomain: true,
+                    beforeSend: function (xhr) {
+                        xhr.withCredentials = true;
+                    },
+                    success: function (data) {
+                        $("#message").text("Updated:" + data["name"]);
+                    }
+                });
+            });
+
+            $("#delete").click(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: ' https://pure-lake-93494.herokuapp.com/randomfood/del?name='+$("#namemod").val(),
+                    crossDomain: true,
+                    beforeSend: function (xhr) {
+                        xhr.withCredentials = true;
+                    },
+                    success: function (data, status, x) {
+                        $("#message").text(data);
+                    }
+                });
+            });
+
+            $("#recommand").click();
+        });
+
     </script>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
 
-          <h1 id="project_title">Randomfood</h1>
-          <h2 id="project_tagline"></h2>
+        <h1 id="project_title">Randomfood</h1>
+        <h2 id="project_tagline"></h2>
 
-        </header>
-    </div>
+    </header>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
         <h3>
-          <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true">
-            <span aria-hidden="true" class="octicon octicon-link"></span>
-          </a>
-          Randomfood
+            <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true">
+                <span aria-hidden="true" class="octicon octicon-link"></span>
+            </a>
+            Randomfood
         </h3>
 
-      <p>
-        I'll recommend random food to you.
+        <p>I'll recommend random food to you.</p>
         <table>
-          <tr>
-            <td>
-            	<input type="button" id="start" value="Start"/>
-            </td>
-          </tr>
+            <tr>
+                <td>
+                    Name:<input type="text" id="name" value="" readonly/>
+                </td>
+                <td>
+                    Note:<input type="text" id="note" value="" readonly/>
+                </td>
+                <td>
+                    <input type="button" id="recommand" value="Recommand"/>
+                </td>
+            </tr>
         </table>
-        <input type="text" id="result" value=""/>
-        
-      <footer class="inner">
-        <p class="copyright">Randomfood maintained by <a href="https://github.com/gomeplus">gomeplus</a></p>
-      </footer>
-    </div>
 
-    
+        <p>Also, you can put/delete food.</p>
+        <table>
+            <tr>
+                <td>
+                    Name:<input type="text" id="namemod" value=""/>
+                </td>
+                <td>
+                    Note:<input type="text" id="notemod" value=""/>
+                </td>
+                <td>
+                    <input type="button" id="put" value="Put"/>
+                    <input type="button" id="delete" value="Delete"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="message"></div>
+                </td>
+            </tr>
+        </table>
 
-  </body>
+        <footer class="inner">
+            <p class="copyright">Randomfood maintained by <a href="https://github.com/gomeplus">gomeplus</a></p>
+        </footer>
+</div>
+
+</body>
 </html>
