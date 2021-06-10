@@ -21,7 +21,7 @@
                     xhr.withCredentials = true;
                 },
                 success: function (data) {
-                    $("#status").val("Persistence status is ready");
+                    $("#status").val("Ready");
                     $("[type=button]").attr('disabled', false);
                 }
             });
@@ -97,7 +97,10 @@
             Randomfood
         </h3>
         
-        <p id="status">Persistence status is not ready, please wait...</p>
+        <div>
+            <p id="status">Persistence status</p>
+            <input type="text" id="status" value="not ready" readonly/>
+        </div>
 
         <p>I'll recommend random food to you.</p>
         <table>
