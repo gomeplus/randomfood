@@ -12,6 +12,18 @@
     <script type="text/javascript" src="./jquery-2.2.3/jquery-2.2.3.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                url: ' https://pure-lake-93494.herokuapp.com',
+                crossDomain: true,
+                beforeSend: function (xhr) {
+                    xhr.withCredentials = true;
+                },
+                success: function (data) {
+                    $("#status).val("GOOD")
+                }
+            });
+            
             $("#recommand").click(function () {
                 $.ajax({
                     headers: {"Accept": "application/json"},
@@ -56,8 +68,6 @@
                     }
                 });
             });
-
-            $("#recommand").click();
         });
 
     </script>
@@ -84,6 +94,8 @@
             </a>
             Randomfood
         </h3>
+        
+        <p id="status">Persistence status is not ready, please wait...</p>
 
         <p>I'll recommend random food to you.</p>
         <table>
