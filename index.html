@@ -13,8 +13,9 @@
     <script>
         $(document).ready(function() {
             $.ajax({
+                headers: {"Accept": "application/json"},
                 type: 'GET',
-                url: ' https://pure-lake-93494.herokuapp.com',
+                url: ' https://pure-lake-93494.herokuapp.com/randomfood/random',
                 crossDomain: true,
                 beforeSend: function (xhr) {
                     xhr.withCredentials = true;
