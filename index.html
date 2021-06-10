@@ -21,6 +21,7 @@
                 },
                 success: function (data) {
                     $("#status").val("Persistence status is ready");
+                    $("[type=button]").attr('disabled', false);
                 }
             });
             
@@ -107,7 +108,7 @@
                     Note:<input type="text" id="note" value="" readonly/>
                 </td>
                 <td>
-                    <input type="button" id="recommand" value="Recommand"/>
+                    <input type="button" id="recommand" value="Recommand" disabled/>
                 </td>
             </tr>
         </table>
@@ -122,8 +123,8 @@
                     Note:<input type="text" id="notemod" value=""/>
                 </td>
                 <td>
-                    <input type="button" id="put" value="Put"/>
-                    <input type="button" id="delete" value="Delete"/>
+                    <input type="button" id="put" value="Put" disabled/>
+                    <input type="button" id="delete" value="Delete" disabled/>
                 </td>
             </tr>
             <tr>
